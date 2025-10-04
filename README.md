@@ -17,8 +17,7 @@ Update the PS1 variable - \\[\033[01;31m\\]$(git_branch)\\[\033[00m\\]
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 ```
 
-# Adding SSH key to git and github to use ssh and sign commits
-
+# Adding SSH key to git and github to use ssh
 ## Key generation
 
 ```bash
@@ -48,4 +47,33 @@ git config --global user.signingkey ~/.ssh/id_ed25519.pub
 
 ```bash
 git config --global commit.gpgsign true
+```
+
+# Adding GPG key to git and github to sign commits
+## Key generation
+
+```bash
+gpg --full-generate-key
+```
+
+## List keys
+
+```bash
+gpg --list-secret-keys --keyid-format=long
+```
+
+## Add public key to github
+
+```bash
+gpg --armor --export KEY-ID
+```
+
+Add the output of the above command to github
+
+## Add key to git
+
+```bash
+git config --global user.signingkey KEY-ID
+git config --global commit.gpgsign true
+git config --global tag.gpgSign true
 ```
